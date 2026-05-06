@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TNG Redirect Test</title>
+</head>
+<body>
+  <h2>Opening TNG Wallet...</h2>
+
+  <script>
+    // 尝试打开 TNG App
+    window.location.href = "tngdwallet://moneypacket/JAdKHuMuWPjyxyygi9Sy";
+
+    // fallback（如果打不开）
+    setTimeout(function() {
+      window.location.href = "https://links.tngdigital.com.my/moneypacket/5XEikuuXMp6ISgGZCuvl";
+    }, 1500);
+  </script>
+
+  <p>If nothing happens, <a href="https://links.tngdigital.com.my/moneypacket/5XEikuuXMp6ISgGZCuvl">click here</a></p>
+</body>
+</html>
