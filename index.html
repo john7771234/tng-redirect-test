@@ -21,7 +21,7 @@ function openTNG() {
   clearTimeout(fallbackTimer);
   fallbackTimer = setTimeout(() => {
     window.location.href = fallbackURL;
-  }, 1000);
+  }, 750);
 }
  
 // 如果页面被隐藏（说明 app 已打开），取消 fallback
