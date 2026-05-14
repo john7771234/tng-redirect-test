@@ -2,46 +2,42 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>TNG Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TNG</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-<h2>Opening TNG...</h2>
-<button onclick="openTNG()">Open TNG</button>
-<p id="status"></p>
+<h2 style="text-align:center;font-family:-apple-system,sans-serif;margin-top:40px;">
+  Opening TNG...
+</h2>
+
 <script>
-const fallbackURL = "https://www.touchngo.com.my/";
 const deepLink = "tngdwallet://client/dl/transfer/moneyPacket/claim?p=ddb9c7e544e8b08c06394db076aa78985c16c24ea5abdfb18d2a104db6c389aab4ede2bc0e64dece5e1e43d5831c587a6669b66dd1fa35409156d8da957f7c9bb2ed7774302d36aaf9bb06f9e5c06935&v=2";
 
-let appOpened = false;
-let startTime = 0;
-
 function openTNG() {
-  startTime = Date.now();
-  appOpened = false;
-
-  // 尝试打开 app
   window.location.href = deepLink;
-
-  // 1.5 秒后检查
-  setTimeout(() => {
-    const elapsed = Date.now() - startTime;
-    // 如果页面没被隐藏过 + 时间正常流逝,说明 app 没装
-    if (!appOpened && elapsed < 1000) {
-      document.getElementById("status").innerText = "App 未安装，正在跳转官网...";
-      window.location.replace(fallbackURL);
-    }
-  }, 500);
 }
 
-// 只有 app 真的打开了,页面才会被隐藏
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    appOpened = true;
-  }
-});
+function closeTelegramWebView() {
+  try {
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.close) {
+      window.Telegram.WebApp.close();
+      return;
+    }
+  } catch (e) {}
 
-// 自动尝试一次
+  try {
+    window.location.href = "tg://resolve";
+  } catch (e) {}
+
+  try {
+    window.close();
+  } catch (e) {}
+}
+
+// 触发 deep link,然后关闭 Telegram WebView
 openTNG();
+setTimeout(closeTelegramWebView, 800);
 </script>
 </body>
 </html>
