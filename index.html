@@ -13,7 +13,7 @@
     // 1.5 秒后,如果还在这个页面(说明 app 没装/没打开),跳官网
     let fallbackTimer = setTimeout(() => {
       window.location.replace(fallbackURL);
-    }, 500);
+    }, 250);
 
     // 如果 app 打开了,页面会被切到后台,取消 fallback
     document.addEventListener("visibilitychange", () => {
